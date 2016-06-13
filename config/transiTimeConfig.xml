@@ -33,7 +33,7 @@
         <maxLongitude>-97.495917</maxLongitude>
          -->
                                                  
-        <feedPollingRateSecs>120</feedPollingRateSecs>
+        <feedPollingRateSecs>30</feedPollingRateSecs>
         
     </avl>   
     <db>        
