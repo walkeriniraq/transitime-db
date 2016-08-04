@@ -48,5 +48,6 @@
     </hibernate>
     <web>
     	<mapTileUrl>http://tile.openstreetmap.org/{z}/{x}/{y}.png</mapTileUrl>
+    	<mapTileCopyright>openstreetmap</mapTileCopyright>
     </web>
 </transitime>
