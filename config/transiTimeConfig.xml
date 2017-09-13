@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transitime>
+    <modules>
+        <!-- <optionalModulesList>org.transitime.core.schedBasedPreds.SchedBasedPredsModule;org.transitime.avl.GtfsRealtimeModule</optionalModulesList> -->                            
+        <optionalModulesList>org.transitime.avl.GtfsRealtimeModule</optionalModulesList>
+    </modules>
+    <autoBlockAssigner>
+		<autoAssignerEnabled>true</autoAssignerEnabled>
+		<ignoreAvlAssignments>false</ignoreAvlAssignments>
+		<allowableEarlySeconds>600</allowableEarlySeconds>
+		<allowableLateSeconds>600</allowableLateSeconds>
+    </autoBlockAssigner>
+    <core>
+    	<predictionGeneratorClass>org.transitime.core.predictiongenerator.average.HistoricalAveragePredictionGeneratorImpl</predictionGeneratorClass>
+    	<maxDistanceFromSegment>30000</maxDistanceFromSegment>	
+    </core>	
+    <avl>
+        <!-- URL for GTFS realtime vechicle location stream. Changed name in versions do use both for the moment. -->
+        <gtfsRealtimeFeedURI>GTFSRTVEHICLEPOSITIONS</gtfsRealtimeFeedURI> 		  
+		<url>GTFSRTVEHICLEPOSITIONS</url>		    
+		<!--  These are the values used for Irish Rail. -->
+        <!-- <minLongitude>-10.725</minLongitude>
+        <maxLongitude>-5.35</maxLongitude>             
+        <minLatitude>51.35</minLatitude>
+        <maxLatitude>55.45</maxLatitude>
+         -->                
+        <!--  defaults are for north america so only need this if we are not using data from there. -->
+        <!--  These are the values used for CAPMETRO in Austin, Texas. -->
+        <!-- <minLatitude>30.145125</minLatitude>   
+        <maxLatitude>30.517681</maxLatitude>
+        
+        <minLongitude>-98.072043</minLongitude>
+        <maxLongitude>-97.495917</maxLongitude>
+         -->
+                                                 
+        <feedPollingRateSecs>30</feedPollingRateSecs>
+        
+    </avl>   
+    <db>        
+        <dbName>AGENCYNAME</dbName>
+        <dbHost>POSTGRES_PORT_5432_TCP_ADDR:POSTGRES_PORT_5432_TCP_PORT</dbHost>
+        <dbType>postgresql</dbType>
+        <dbUserName>postgres</dbUserName>
+        <dbPassword>PGPASSWORD</dbPassword>
+    </db>     
+    <hibernate>
+        <configFile>/usr/local/transitime/config/hibernate.cfg.xml</configFile>        
+    </hibernate>
+    <web>
+    	<mapTileUrl>http://tile.openstreetmap.org/{z}/{x}/{y}.png</mapTileUrl>
+    	<mapTileCopyright>openstreetmap</mapTileCopyright>
+    </web>
+</transitime>

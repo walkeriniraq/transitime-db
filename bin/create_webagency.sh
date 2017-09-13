@@ -9,19 +9,4 @@ sed -i s#"GTFSRTVEHICLEPOSITIONS"#"$GTFSRTVEHICLEPOSITIONS"#g /usr/local/transit
 
 cp /usr/local/transitime/config/transitime.properties /usr/local/transitimeTomcatConfig/transitime.properties
 
-rmiregistry &
-
-#set the API as an environment variable so we can set in JSP of template/includes.jsp in the transitime webapp
-export APIKEY=$(/get_api_key.sh)
-
-# make it so we can also access as a system property in the JSP
-export JAVA_OPTS="$JAVA_OPTS -Dtransitime.apikey=$(/get_api_key.sh)"
-
-echo JAVA_OPTS $JAVA_OPTS
-
-/usr/local/tomcat/bin/startup.sh
-
-java -Dtransitime.configFiles=/usr/local/transitime/config/transiTimeConfig.xml -Dtransitime.core.agencyId=$AGENCYID -Dtransitime.logging.dir=/usr/local/transitime/logs/ -jar $TRANSITIMECORE/transitime/target/Core.jar -configRev 0 /dev/null 2>&1
-
-
-
+java -Dtransitime.db.dbName=$AGENCYNAME -Dtransitime.hibernate.configFile=/usr/local/transitime/config/hibernate.cfg.xml -Dtransitime.db.dbHost=$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT -Dtransitime.db.dbUserName=postgres -Dtransitime.db.dbPassword=$PGPASSWORD -Dtransitime.db.dbType=postgresql -cp transitime-core/transitime/target/CreateAPIKey.jar org.transitime.db.webstructs.WebAgency $AGENCYID 127.0.0.1 $AGENCYNAME postgresql $POSTGRES_PORT_5432_TCP_ADDR postgres $PGPASSWORD    
